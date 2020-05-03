@@ -65,5 +65,10 @@ public class User {
         this.gender=gender;
     }
 
+    public User(String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
+
 
 }

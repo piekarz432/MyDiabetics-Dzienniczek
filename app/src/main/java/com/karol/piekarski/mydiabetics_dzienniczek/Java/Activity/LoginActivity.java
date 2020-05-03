@@ -20,13 +20,14 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.Repository;
+import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.User;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Interfaces.Validate;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
 public class LoginActivity extends AppCompatActivity implements Validate{
 
 
-    static final int RC_SIGN_IN = 0;
+    static final int RC_SIGN_IN = 1;
 
     private EditText login;
     private EditText password;
@@ -80,8 +81,7 @@ public class LoginActivity extends AppCompatActivity implements Validate{
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+                signIn();
             }
         });
 
@@ -109,9 +109,12 @@ public class LoginActivity extends AppCompatActivity implements Validate{
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            //Repository.user=new User(account.getEmail(), account.getDisplayName());
+
 
             // Signed in successfully, show authenticated UI.
-            //
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -160,7 +163,12 @@ public class LoginActivity extends AppCompatActivity implements Validate{
 
         }
     }
-    
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
 
 
 }
