@@ -23,5 +23,11 @@
     <string name="changePassword2">Zmień Hasło</string>
     <string name="repeatPassword">Powtórz Hasło</string>
     <string name="newPassword">Nowe Hasło</string>
+    <string name="profile">Profil</string>
+    <string name="settings">Ustawienia</string>
+    <string name="info">Informacje</string>
+    <string name="help">Pomoc</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

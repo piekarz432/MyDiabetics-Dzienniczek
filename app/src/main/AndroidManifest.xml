@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Java.Activity.ForgotPassword"></activity>
         <activity
             android:name=".Java.Activity.LoginActivity"
             android:label="@string/app_name">
@@ -21,6 +20,7 @@
         </activity>
         <activity android:name=".Java.Activity.MainActivity" />
         <activity android:name=".Java.Activity.SignUpActivity" />
+        <activity android:name=".Java.Activity.ForgotPassword"></activity>
     </application>
 
 </manifest>

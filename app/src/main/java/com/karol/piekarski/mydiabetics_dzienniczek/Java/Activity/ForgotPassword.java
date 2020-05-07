@@ -57,6 +57,9 @@ public class ForgotPassword extends AppCompatActivity implements Validate {
                 repeatPassword.setError("Hasła muszą być takie same.");
                 return false;
             }
+        }else
+        {
+            Toast.makeText(this,"Proszę utworzyć konto", Toast.LENGTH_SHORT).show();
         }
 
         return false;

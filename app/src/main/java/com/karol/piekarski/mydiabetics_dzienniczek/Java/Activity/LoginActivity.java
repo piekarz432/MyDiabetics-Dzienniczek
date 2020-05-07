@@ -26,7 +26,6 @@ import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
 public class LoginActivity extends AppCompatActivity implements Validate{
 
-
     static final int RC_SIGN_IN = 1;
 
     private EditText login;
@@ -41,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements Validate{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         login=findViewById(R.id.name);
         password=findViewById(R.id.password);
         signUp=findViewById(R.id.signUp);
@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity implements Validate{
 
     }
 
-
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
@@ -113,8 +112,7 @@ public class LoginActivity extends AppCompatActivity implements Validate{
 
 
             // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            loadMainActivity();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -126,6 +124,12 @@ public class LoginActivity extends AppCompatActivity implements Validate{
     public boolean validate() {
 
         if (Repository.user != null) {
+
+            if(login.getText().toString().isEmpty() && password.getText().toString().isEmpty())
+            {
+                login.setError("Prosze wpisac nazwę użytownika.");
+                password.setError("Prosze wpisac hasło.");
+            }
 
             if (login.getText().toString().equals(Repository.user.getUsername()) && password.getText().toString().equals(Repository.user.getPassword())) {
                 return true;
@@ -141,6 +145,9 @@ public class LoginActivity extends AppCompatActivity implements Validate{
                 return false;
             }
 
+        }else
+        {
+            Toast.makeText(this,"Proszę utworzyć konto", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -152,21 +159,30 @@ public class LoginActivity extends AppCompatActivity implements Validate{
             if(Repository.user.getGender().equals("Kobieta"))
             {
                 Toast.makeText(getApplicationContext(), "Zostałaś zalogowana pomyślnie", Toast.LENGTH_SHORT).show();
+                loadMainActivity();
                 return;
             }
 
             if(Repository.user.getGender().equals("Mężczyzna"))
             {
                 Toast.makeText(getApplicationContext(), "Zostałaś zalogowany pomyślnie", Toast.LENGTH_SHORT).show();
+                loadMainActivity();
                 return;
             }
 
         }
     }
-
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void loadMainActivity()
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
 
