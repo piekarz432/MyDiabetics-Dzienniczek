@@ -60,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements Validate{
                 Intent intent = new Intent(LoginActivity.this.getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
 
+
+                //Repository.user=new User("piekarz", null, null, null, "qwertyuiop", null);
+                //Toast.makeText(getApplicationContext(),"Konto zostalo utworzone.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,17 +157,16 @@ public class LoginActivity extends AppCompatActivity implements Validate{
 
     private void checkData()
     {
-        if(validate())
-        {
-            if(Repository.user.getGender().equals("Kobieta"))
-            {
+       // loadMainActivity();
+
+        if(validate()) {
+            if (Repository.user.getGender().equals("Kobieta")) {
                 Toast.makeText(getApplicationContext(), "Zostałaś zalogowana pomyślnie", Toast.LENGTH_SHORT).show();
                 loadMainActivity();
                 return;
             }
 
-            if(Repository.user.getGender().equals("Mężczyzna"))
-            {
+            if (Repository.user.getGender().equals("Mężczyzna")) {
                 Toast.makeText(getApplicationContext(), "Zostałaś zalogowany pomyślnie", Toast.LENGTH_SHORT).show();
                 loadMainActivity();
                 return;
