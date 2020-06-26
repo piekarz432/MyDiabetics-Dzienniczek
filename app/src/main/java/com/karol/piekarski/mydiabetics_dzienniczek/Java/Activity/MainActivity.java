@@ -9,7 +9,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;

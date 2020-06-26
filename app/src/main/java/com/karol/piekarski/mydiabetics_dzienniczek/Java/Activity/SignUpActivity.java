@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.Database;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.Repository;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.User;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Interfaces.Validate;
@@ -80,9 +79,6 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
             Repository.user =new User(username.getText().toString(),email.getText().toString(),name.getText().toString(),
                                       surname.getText().toString(), password.getText().toString(), checkGender());
             Toast.makeText(getApplicationContext(),"Konto zostalo utworzone.", Toast.LENGTH_SHORT).show();
-            Database.openConnection();
-            Database.insertUser(Repository.user);
-            Database.closeConnection();
 
             finish();
 
