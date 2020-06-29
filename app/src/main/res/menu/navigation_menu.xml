@@ -5,8 +5,6 @@
        android:icon="@drawable/icon_male"
        android:title="@string/profile"/>
 
-
-
     <item android:title="Inne">
 
         <menu>
@@ -29,11 +27,6 @@
 
         </menu>
 
-
-
     </item>
-
-
-
 
 </menu>

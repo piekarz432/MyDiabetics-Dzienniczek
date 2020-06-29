@@ -1,5 +1,6 @@
 package com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,26 +9,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.Repository;
-import com.karol.piekarski.mydiabetics_dzienniczek.Java.Interfaces.Validate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
-public class ForgotPassword extends AppCompatActivity implements Validate {
+public class ForgotPassword extends AppCompatActivity {
 
-    private EditText login;
-    private EditText newPassword;
-    private EditText repeatPassword;
+    private EditText email;
     private Button changePassword;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        login=findViewById(R.id.name);
-        newPassword =findViewById(R.id.password);
-        repeatPassword=findViewById(R.id.repeatPassword);
+        email=findViewById(R.id.email);
         changePassword=findViewById(R.id.changePassword);
+        firebaseAuth=FirebaseAuth.getInstance();
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,42 +36,22 @@ public class ForgotPassword extends AppCompatActivity implements Validate {
             }
         });
     }
-
-    @Override
-    public boolean validate() {
-
-        if(Repository.user!=null) {
-
-            if (login.getText().toString().equals(Repository.user.getUsername()) && newPassword.getText().toString().equals(repeatPassword.getText().toString())) {
-                return true;
-            }
-            if (login.getText().toString().isEmpty() || !login.getText().toString().equals(Repository.user.getUsername())) {
-                login.setError("Nazwa użytkownika jest niepoprawna.");
-                return false;
-            }
-
-            if (!newPassword.getText().equals(" ") && !repeatPassword.getText().equals(" ")
-                    && newPassword.getText().toString().equals(repeatPassword.getText().toString())) {
-
-                newPassword.setError("Hasła muszą być takie same.");
-                repeatPassword.setError("Hasła muszą być takie same.");
-                return false;
-            }
-        }else
-        {
-            Toast.makeText(this,"Proszę utworzyć konto", Toast.LENGTH_SHORT).show();
-        }
-
-        return false;
-    }
-
     private void check()
     {
-        if(validate())
-        {
-            Repository.user.setPassword(newPassword.getText().toString());
-            Toast.makeText(getApplicationContext(), "Hasło zostało zmienione pomyślnie.", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(getApplicationContext(), "Link do zmiany hasła został wysłana na podany adres email.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else
+                {
+                    Toast.makeText(getApplicationContext(), "Konto o podanym adresie email nie istnieje.", Toast.LENGTH_SHORT).show();
+                    email.setError("Konto nie istnieje.");
+                }
+            }
+        });
+
     }
 }

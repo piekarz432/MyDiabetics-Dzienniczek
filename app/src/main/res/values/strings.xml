@@ -27,8 +27,19 @@
     <string name="settings">Ustawienia</string>
     <string name="info">Informacje</string>
     <string name="help">Pomoc</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="glucozeCalc">Przelicznik cukru</string>
+    <string name="descritpionCalc">Wprowadź wartość mg/dl(miligram na decylitr) lub mmol/l (milimol na litr) aby przeliczyć jednostki.</string>
+    <string name="mg_dll">mg/dll</string>
+    <string name="mmol_l">mmol/l</string>
+    <string name="discribeForgotPassword">Wprowadź adres email twojego konta na który wyślemy link do zamiany hasła.</string>
+    <string name="title_activity_navigation_header">NavigationHeader</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="completed_data">Uzupełnianie danych</string>
+    <string name="complete_data">Uzupełnij dane</string>
 </resources>

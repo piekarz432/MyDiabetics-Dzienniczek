@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.karol.piekarski.mydiabetics_dzienniczek">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +22,7 @@
         </activity>
         <activity android:name=".Java.Activity.MainActivity" />
         <activity android:name=".Java.Activity.SignUpActivity" />
-        <activity android:name=".Java.Activity.ForgotPassword"></activity>
+        <activity android:name=".Java.Activity.ForgotPassword" />
     </application>
 
 </manifest>

@@ -11,13 +11,13 @@
         android:label="MainMenu"
         tools:layout="@layout/fragment_main_menu_fagment" />
     <fragment
-        android:id="@+id/menuProfile"
-        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
         android:id="@+id/menuSettings"
         android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.SettingFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/menuCalc"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.CalcFragment"
+        android:label="Calculator"
+        tools:layout="@layout/fragment_calc" />
 </navigation>

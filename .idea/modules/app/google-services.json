@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "383544913064",
+    "firebase_url": "https://mydiabetics-dzie-1588528287386.firebaseio.com",
+    "project_id": "mydiabetics-dzie-1588528287386",
+    "storage_bucket": "mydiabetics-dzie-1588528287386.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383544913064:android:6deaf49a433b290ef7e69d",
+        "android_client_info": {
+          "package_name": "com.karol.piekarski.mydiabetics_dzienniczek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383544913064-o2pkood8li4oo2bbk8sjvcvseh27e1cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karol.piekarski.mydiabetics_dzienniczek",
+            "certificate_hash": "371f26d8ebde2f1cf98d9094a2998d95889192c3"
+          }
+        },
+        {
+          "client_id": "383544913064-tqgh9qlfr1s6ed8ijhb22quo59ur55v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJw7SkO-X9iQ-PVTe-re026yqU2F7Njxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383544913064-tqgh9qlfr1s6ed8ijhb22quo59ur55v9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
