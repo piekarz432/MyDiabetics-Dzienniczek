@@ -22,7 +22,6 @@
         </activity>
         <activity android:name=".Java.Activity.MainActivity" />
         <activity android:name=".Java.Activity.SignUpActivity" />
-        <activity android:name=".Java.Activity.ForgotPassword" />
     </application>
 
 </manifest>

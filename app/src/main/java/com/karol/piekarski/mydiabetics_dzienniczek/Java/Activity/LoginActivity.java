@@ -1,8 +1,10 @@
 package com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,13 +26,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.Singleton;
+import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.CheckLoginSingleton;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,7 +43,7 @@ public class LoginActivity extends AppCompatActivity{
 
     static final int RC_SIGN_IN = 1;
 
-    private EditText login;
+    private EditText email;
     private EditText password;
     private TextView signUp;
     private Button btnLogin;
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseFirestore firebaseFirestore;
     private ProgressBar progressBar;
     private String userId;
+    private CheckLoginSingleton checkLoginSingleton;
 
     @Override
     public void onStart() {
@@ -59,6 +65,8 @@ public class LoginActivity extends AppCompatActivity{
         {
             loadMainActivity();
         }
+
+        checkLoginSingleton=CheckLoginSingleton.getInstance();
     }
 
     @Override
@@ -66,7 +74,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login=findViewById(R.id.email);
+        email =findViewById(R.id.email);
         password=findViewById(R.id.password);
         signUp=findViewById(R.id.signUp);
         btnLogin=findViewById(R.id.changePassword);
@@ -94,17 +102,7 @@ public class LoginActivity extends AppCompatActivity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 checkData();
-            }
-        });
-
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this.getApplicationContext(), ForgotPassword.class);
-                startActivity(intent);
-
             }
         });
 
@@ -115,6 +113,54 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText resetEmail = new EditText(v.getContext());
+                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Resetowanie Hasła");
+                passwordResetDialog.setMessage("Wprowadź adres email twojego konta na który wyślemy link do zamiany hasła.");
+                passwordResetDialog.setView(resetEmail);
+
+                passwordResetDialog.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        firebaseAuth.fetchSignInMethodsForEmail(resetEmail.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                List<String> isNewUser = task.getResult().getSignInMethods();
+                                for(String n : isNewUser)
+                                {
+                                    if(!n.equals("google.com"))
+                                    {
+                                        firebaseAuth.sendPasswordResetEmail(resetEmail.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getApplicationContext(), "Link do zmiany hasła został wysłana na podany adres email.", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Konto o podanym adresie email nie istnieje.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }else {
+                                        Toast.makeText(getApplicationContext(), "Nie można zmenić hasła do konta Google.", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+
+                passwordResetDialog.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                    passwordResetDialog.create().show();
+            }
+        });
     }
 
     @Override
@@ -149,31 +195,39 @@ public class LoginActivity extends AppCompatActivity{
 
     public void checkData() {
 
-        if(login.getText().toString().isEmpty() && password.getText().toString().isEmpty())
+        if(email.getText().toString().isEmpty())
         {
-            login.setError("Prosze wpisac nazwę użytownika.");
+            email.setError("Prosze wpisac nazwę użytownika.");
+            return;
+        }
+
+        if(password.getText().toString().isEmpty())
+        {
             password.setError("Prosze wpisac hasło.");
             return;
         }
 
         btnLogin.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
-        firebaseAuth.signInWithEmailAndPassword(login.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
                     Toast.makeText(getApplicationContext(), "Logowanie przebiegło pomyślnie.", Toast.LENGTH_SHORT).show();
+                    checkLoginSingleton.isLoggedGoogle=false;
                     loadMainActivity();
                 }else
                 {
-                    Toast.makeText(getApplicationContext(), "Bład podczas logowania." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                    errorCode(errorCode);
                     btnLogin.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
+
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -201,6 +255,7 @@ public class LoginActivity extends AppCompatActivity{
                             Log.d("Zapis do bazy", "Blad " + e.toString());
                         });
                     }
+                    checkLoginSingleton.isLoggedGoogle=true;
                     loadMainActivity();
                 } else {
                     // If sign in fails, display a message to the user.
@@ -210,10 +265,31 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
     }
-    private void loadMainActivity()
-    {
+
+    private void loadMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }
+
+    private void errorCode(String error) {
+        switch (error)
+        {
+            case "ERROR_INVALID_EMAIL":
+                Toast.makeText(getApplicationContext(), "Format adresu email jest niepoprawny." , Toast.LENGTH_SHORT).show();
+                email.setError("Format adresu email jest niepoprawny.");
+                break;
+
+            case "ERROR_WRONG_PASSWORD":
+                Toast.makeText(getApplicationContext(), "Hasło jest niepoprawne." , Toast.LENGTH_SHORT).show();
+                password.setError("Hasło jest niepoprawne.");
+                break;
+
+            case "ERROR_USER_NOT_FOUND":
+                Toast.makeText(getApplicationContext(), "Użytkownik o wprowadzonych danych nie istnieje." , Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
 }
+

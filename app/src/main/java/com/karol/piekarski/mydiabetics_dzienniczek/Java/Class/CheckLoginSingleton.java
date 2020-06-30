@@ -1,18 +1,18 @@
 package com.karol.piekarski.mydiabetics_dzienniczek.Java.Class;
 
-public class Singleton {
-    private volatile static Singleton instance;
+public class CheckLoginSingleton {
+    private volatile static CheckLoginSingleton instance;
 
     public boolean isLoggedGoogle;
 
-    private Singleton() {
+    private CheckLoginSingleton() {
     }
 
-    public static Singleton getInstance() {
+    public static CheckLoginSingleton getInstance() {
         if (instance == null) {
-            synchronized (Singleton.class) {
+            synchronized (CheckLoginSingleton.class) {
                 if (instance == null) {
-                    instance = new Singleton();
+                    instance = new CheckLoginSingleton();
                 }
             }
         }
