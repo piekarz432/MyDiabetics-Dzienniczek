@@ -13,6 +13,14 @@
                 android:icon="@drawable/icon_calc"
                 android:title="@string/glucozeCalc"/>
 
+            <item android:id="@+id/reminders"
+                android:icon="@drawable/icon_remainders"
+                android:title="@string/remainders"/>
+
+            <item android:id="@+id/notes"
+                android:icon="@drawable/icon_notes"
+                android:title="@string/notes"/>
+
             <item android:id="@+id/menuSettings"
                 android:icon="@drawable/icon_settings"
                 android:title="@string/settings"/>

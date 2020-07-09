@@ -31,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.CheckLoginSingleton;
+import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.ApplicationStorage;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseFirestore firebaseFirestore;
     private ProgressBar progressBar;
     private String userId;
-    private CheckLoginSingleton checkLoginSingleton;
+    private ApplicationStorage applicationStorage;
 
     @Override
     public void onStart() {
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity{
             loadMainActivity();
         }
 
-        checkLoginSingleton=CheckLoginSingleton.getInstance();
+        applicationStorage = ApplicationStorage.getInstance();
     }
 
     @Override
@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity{
                 if(task.isSuccessful())
                 {
                     Toast.makeText(getApplicationContext(), "Logowanie przebiegło pomyślnie.", Toast.LENGTH_SHORT).show();
-                    checkLoginSingleton.isLoggedGoogle=false;
+                    applicationStorage.setLoggedGoogle(false);
                     loadMainActivity();
                 }else
                 {
@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity{
                             Log.d("Zapis do bazy", "Blad " + e.toString());
                         });
                     }
-                    checkLoginSingleton.isLoggedGoogle=true;
+                    applicationStorage.setLoggedGoogle(true);
                     loadMainActivity();
                 } else {
                     // If sign in fails, display a message to the user.

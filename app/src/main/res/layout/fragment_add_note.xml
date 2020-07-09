@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Java.Fragments.Notes.AddNote">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".Java.Fragments.Notes.AddNote">
+
+        <EditText
+            android:id="@+id/noteDetailsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Wpisz tytuł notatki"
+            android:inputType="textCapSentences"
+            app:layout_constraintBottom_toTopOf="@+id/noteDetailsContent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </EditText>
+
+
+        <EditText
+            android:id="@+id/noteDetailsContent"
+            android:layout_width="388dp"
+            android:layout_height="640dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="28dp"
+            android:backgroundTint="@android:color/transparent"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Wpisz notatke tutaj."
+            android:inputType="textMultiLine|textCapSentences"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.304"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarAddNote"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/noteDetailsContent"
+            app:layout_constraintEnd_toEndOf="@+id/noteDetailsContent"
+            app:layout_constraintStart_toStartOf="@+id/noteDetailsContent"
+            app:layout_constraintTop_toTopOf="@+id/noteDetailsContent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/progressBarUpdateNote"
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/icon_save"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/noteDetailsContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Interfaces.Validate;
@@ -61,8 +62,7 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
 
     }
 
-    public boolean validate()
-    {
+    public boolean validate() {
         if(name.getText().toString().isEmpty() || surname.getText().toString().isEmpty()
                 || email.getText().toString().isEmpty()
                 || password.getText().toString().isEmpty() || gender.getCheckedRadioButtonId()== -1)
@@ -80,8 +80,7 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
         return true;
     }
 
-    private void checkData()
-    {
+    private void checkData() {
         if(validate())
         {
             signUp.setVisibility(View.INVISIBLE);
@@ -105,7 +104,8 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
                         });
                         finish();
                     }else {
-                        Toast.makeText(getApplicationContext(), "Bład podczas tworzenia konta." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        String error = ((FirebaseAuthException) task.getException()).getErrorCode();
+                        errorCode(error);
                         signUp.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.INVISIBLE);
                     }
@@ -114,8 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
         }
     }
 
-    private String checkGender()
-    {
+    private String checkGender() {
         int radioId = gender.getCheckedRadioButtonId();
 
         if(radioId==R.id.female)
@@ -124,6 +123,21 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
         }
         return "Mężczyzna";
 
+    }
+
+    private void errorCode(String error) {
+        switch (error)
+        {
+            case "ERROR_INVALID_EMAIL":
+                Toast.makeText(getApplicationContext(), "Format adresu email jest niepoprawny." , Toast.LENGTH_SHORT).show();
+                email.setError("Format adresu email jest niepoprawny.");
+                break;
+
+            case "ERROR_EMAIL_ALREADY_IN_USE":
+                Toast.makeText(getApplicationContext(), "Użytkownik o takim adresie email już istnieje." , Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 
 

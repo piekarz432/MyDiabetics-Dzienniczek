@@ -42,4 +42,8 @@
     <string name="action_settings">Settings</string>
     <string name="completed_data">Uzupełnianie danych</string>
     <string name="complete_data">Uzupełnij dane</string>
+    <string name="remainders">Przypomnienia</string>
+    <string name="notes">Notatki</string>
+    <string name="createRemainders">Kliknij w przycisk aby utworzyć przypomnienie.</string>
+    <string name="createNotes">Kliknij w przycisk aby utworzyć notatke.</string>
 </resources>

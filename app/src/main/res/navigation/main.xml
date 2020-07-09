@@ -8,16 +8,55 @@
     <fragment
         android:id="@+id/mainMenuFragment"
         android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.MainMenuFragment"
-        android:label="MainMenu"
+        android:label="Menu Głowne"
         tools:layout="@layout/fragment_main_menu_fagment" />
     <fragment
         android:id="@+id/menuSettings"
         android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.SettingFragment"
-        android:label="Settings"
+        android:label="Ustawienia"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/menuCalc"
         android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.CalcFragment"
-        android:label="Calculator"
+        android:label="Przelicznik Cukru"
         tools:layout="@layout/fragment_calc" />
+    <fragment
+        android:id="@+id/reminders"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Reminders.RemaindersFragment"
+        android:label="Przypomnienia"
+        tools:layout="@layout/fragment_remainders" />
+    <fragment
+        android:id="@+id/notes"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Notes.NotesFragment"
+        android:label="Notatki"
+        tools:layout="@layout/fragment_notes" >
+        <action
+            android:id="@+id/action_notes_to_noteDetails"
+            app:destination="@id/noteDetails" />
+        <action
+            android:id="@+id/action_notes_to_addNote"
+            app:destination="@id/addNote" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteDetails"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Notes.NoteDetails"
+        android:label="Szczegóły Notatki"
+        tools:layout="@layout/fragment_note_details" >
+        <action
+            android:id="@+id/action_noteDetails_to_updateNote"
+            app:destination="@id/updateNote" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNote"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Notes.AddNote"
+        android:label="Dodawanie Notatki"
+        tools:layout="@layout/fragment_add_note" />
+    <fragment
+        android:id="@+id/updateNote"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Notes.UpdateNote"
+        android:label="Edycja Notatki" >
+        <action
+            android:id="@+id/action_updateNote_to_notes"
+            app:destination="@id/notes" />
+    </fragment>
 </navigation>
