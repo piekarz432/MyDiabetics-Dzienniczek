@@ -92,7 +92,7 @@ public class AddNote extends Fragment {
         user = firebaseAuth.getCurrentUser();
         noteContent = view.findViewById(R.id.noteDetailsContent);
         noteTitile = view.findViewById(R.id.noteDetailsTitle);
-        saveNote = view.findViewById(R.id.progressBarUpdateNote);
+        saveNote = view.findViewById(R.id.saveNote);
         progressBarAddNote = view.findViewById(R.id.progressBarAddNote);
 
         saveNote.setOnClickListener(new View.OnClickListener() {

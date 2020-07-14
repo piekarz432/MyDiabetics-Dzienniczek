@@ -97,15 +97,12 @@ public class UpdateNote extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         applicationStorage = ApplicationStorage.getInstance();
 
-        saveUpdateNote = view.findViewById(R.id.progressBarUpdateNote);
+        saveUpdateNote = view.findViewById(R.id.saveUpdateNote);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
         updateTitle.setText(applicationStorage.getNoteViewHolder().getNoteTitle());
         updateContent.setText(applicationStorage.getNoteViewHolder().getNoteContent());
-
-        Log.i("Test", "Jestem w aktualizacji notatki");
-
 
         saveUpdateNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,9 +136,8 @@ public class UpdateNote extends Fragment {
         documentReference.update(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getContext(), "Notatka została dodana.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Notatka została zaktualizowana.", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getView()).navigate(R.id.action_updateNote_to_notes);
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -90,19 +90,7 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
-                        Toast.makeText(getApplicationContext(), "Konto zostało utworzone.", Toast.LENGTH_SHORT).show();
-                        userId=firebaseAuth.getCurrentUser().getUid();
-                        DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId);
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("Name", name.getText().toString().trim());
-                        user.put("Surname", surname.getText().toString().trim());
-                        user.put("Email", email.getText().toString().trim());
-                        user.put("Gender", checkGender());
-                        documentReference.set(user).addOnSuccessListener(aVoid -> Log.d("Zapisd o bazy", "Dodano uzytkownika dla id " + userId
-                        )).addOnFailureListener(e -> {
-                            Log.d("Zapis do bazy", "Blad " + e.toString());
-                        });
-                        finish();
+                        addUserToDatabase();
                     }else {
                         String error = ((FirebaseAuthException) task.getException()).getErrorCode();
                         errorCode(error);
@@ -140,5 +128,20 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
         }
     }
 
+    private void addUserToDatabase() {
+        Toast.makeText(getApplicationContext(), "Konto zostało utworzone.", Toast.LENGTH_SHORT).show();
+        userId=firebaseAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId);
+        Map<String, Object> user = new HashMap<>();
+        user.put("Name", name.getText().toString().trim());
+        user.put("Surname", surname.getText().toString().trim());
+        user.put("Email", email.getText().toString().trim());
+        user.put("Gender", checkGender());
+        documentReference.set(user).addOnSuccessListener(aVoid -> Log.d("Zapisd o bazy", "Dodano uzytkownika dla id " + userId
+        )).addOnFailureListener(e -> {
+            Log.d("Zapis do bazy", "Blad " + e.toString());
+        });
+        finish();
+    }
 
 }
