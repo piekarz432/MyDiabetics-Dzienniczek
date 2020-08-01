@@ -10,9 +10,13 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,13 +57,11 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
         userData=headerView.findViewById(R.id.userData);
         userEmail=headerView.findViewById(R.id.userEmail);
+        final TextView textTitle = findViewById(R.id.textTitle);
         navigationView.setItemIconTintList(null);
 
         NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
         NavigationUI.setupWithNavController(navigationView,navController);
-
-
-        final TextView textTitle = findViewById(R.id.textTitle);
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -75,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     textTitle.setText(navController.getCurrentDestination().getLabel());
                 }
-
-
             }
         });
 
@@ -98,6 +98,5 @@ public class MainActivity extends AppCompatActivity {
           }
       });
     }
-
 }
 

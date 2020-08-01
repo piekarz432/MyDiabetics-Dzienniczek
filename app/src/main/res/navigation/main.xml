@@ -9,20 +9,24 @@
         android:id="@+id/mainMenuFragment"
         android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.MainMenuFragment"
         android:label="Menu Głowne"
-        tools:layout="@layout/fragment_main_menu_fagment" />
+        tools:layout="@layout/fragment_main_menu_fagment" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_menuCalc"
+            app:destination="@id/menuCalc" />
+    </fragment>
     <fragment
         android:id="@+id/menuSettings"
-        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.SettingFragment"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Settings.SettingFragment"
         android:label="Ustawienia"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/menuCalc"
-        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity.CalcFragment"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Calc.CalcFragment"
         android:label="Przelicznik Cukru"
         tools:layout="@layout/fragment_calc" />
     <fragment
         android:id="@+id/reminders"
-        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Reminders.RemaindersFragment"
+        android:name="com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Remainders.RemaindersFragment"
         android:label="Przypomnienia"
         tools:layout="@layout/fragment_remainders" />
     <fragment

@@ -5,7 +5,7 @@
        android:icon="@drawable/icon_male"
        android:title="@string/profile"/>
 
-    <item android:title="Inne">
+    <item android:title="Funkcje">
 
         <menu>
 
@@ -20,6 +20,13 @@
             <item android:id="@+id/notes"
                 android:icon="@drawable/icon_notes"
                 android:title="@string/notes"/>
+        </menu>
+
+    </item>
+
+    <item android:title="Inne">
+
+        <menu>
 
             <item android:id="@+id/menuSettings"
                 android:icon="@drawable/icon_settings"
@@ -32,6 +39,11 @@
             <item android:id="@+id/menuInfo"
                 android:icon="@drawable/icon_info"
                 android:title="@string/info"/>
+
+            <item
+                android:id="@+id/menuLogout"
+                android:icon="@drawable/icon_log_out"
+                android:title="Wyloguj" />
 
         </menu>
 

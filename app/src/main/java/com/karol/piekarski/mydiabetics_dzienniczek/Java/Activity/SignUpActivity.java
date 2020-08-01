@@ -73,7 +73,7 @@ public class SignUpActivity extends AppCompatActivity implements Validate {
 
         if(password.getText().toString().length()<8)
         {
-           password.setError("Hasło mus zawierać co najmniej 8 znaków." );
+            password.setError("Hasło mus zawierać co najmniej 8 znaków." );
             return false;
         }
 

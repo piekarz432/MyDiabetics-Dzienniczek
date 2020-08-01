@@ -1,4 +1,4 @@
-package com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity;
+package com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Settings;
 
 
 import android.os.Bundle;

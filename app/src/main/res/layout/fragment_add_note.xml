@@ -9,51 +9,158 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".Java.Fragments.Notes.AddNote">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <EditText
             android:id="@+id/noteDetailsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Wpisz tytuł notatki"
+            android:hint="@string/writeNoteTitle"
+            android:importantForAutofill="no"
             android:inputType="textCapSentences"
-            app:layout_constraintBottom_toTopOf="@+id/noteDetailsContent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/timeAndDateFragment">
         </EditText>
 
+        <LinearLayout
+            android:id="@+id/timeAndDateFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noteDetailsTitle"
+            app:layout_constraintBottom_toTopOf="@+id/glucoseAndInsulinFragment">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="49dp"
+                    android:layout_height="31dp"
+                    android:src="@drawable/icon_calendar" />
+
+                <TextView
+                    android:id="@+id/calendarButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="49dp"
+                    android:layout_height="31dp"
+                    android:src="@drawable/icon_clock" />
+
+                <TextView
+                    android:id="@+id/clockButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/glucoseAndInsulinFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timeAndDateFragment">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Dawka Insuliny"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/insulin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Cukier mg/dll"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/glucose"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number" />
+
+            </LinearLayout>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/noteDetailsContent"
-            android:layout_width="388dp"
-            android:layout_height="640dp"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="482.5dp"
             android:backgroundTint="@android:color/transparent"
             android:ems="10"
+            android:layout_margin="10dp"
             android:gravity="start|top"
-            android:hint="Wpisz notatke tutaj."
+            android:hint="@string/writeNoteDetails"
             android:inputType="textMultiLine|textCapSentences"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.304"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/progressBarAddNote"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/noteDetailsContent"
-            app:layout_constraintEnd_toEndOf="@+id/noteDetailsContent"
-            app:layout_constraintStart_toStartOf="@+id/noteDetailsContent"
-            app:layout_constraintTop_toTopOf="@+id/noteDetailsContent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/glucoseAndInsulinFragment" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/saveNote"
@@ -69,5 +176,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarAddNote"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/noteDetailsContent"
+            app:layout_constraintEnd_toEndOf="@+id/noteDetailsContent"
+            app:layout_constraintStart_toStartOf="@+id/noteDetailsContent"
+            app:layout_constraintTop_toTopOf="@+id/noteDetailsContent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

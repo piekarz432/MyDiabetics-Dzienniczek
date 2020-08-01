@@ -46,4 +46,6 @@
     <string name="notes">Notatki</string>
     <string name="createRemainders">Kliknij w przycisk aby utworzyć przypomnienie.</string>
     <string name="createNotes">Kliknij w przycisk aby utworzyć notatke.</string>
+    <string name="writeNoteTitle">Wpisz tytuł notatki</string>
+    <string name="writeNoteDetails">Wpisz opis notatki</string>
 </resources>

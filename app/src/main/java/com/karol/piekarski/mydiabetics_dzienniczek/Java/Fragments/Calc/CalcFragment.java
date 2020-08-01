@@ -1,4 +1,4 @@
-package com.karol.piekarski.mydiabetics_dzienniczek.Java.Activity;
+package com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Calc;
 
 import android.os.Bundle;
 
@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
-
-import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.ApplicationStorage;
+import com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.EmptyRecyclerView;
 import com.karol.piekarski.mydiabetics_dzienniczek.Java.Model.Notes;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
@@ -50,7 +51,8 @@ public class NotesFragment extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    private RecyclerView listNotes;
+    private EmptyRecyclerView listNotes;
+    private View emptyRecyclerView;
     private FloatingActionButton floatingActionButtonNotes;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter<Notes, NoteViewHolder> noteAdapter;
@@ -58,6 +60,8 @@ public class NotesFragment extends Fragment{
     private ApplicationStorage applicationStorage;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
+
+
 
 
     public NotesFragment() {
@@ -102,7 +106,9 @@ public class NotesFragment extends Fragment{
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         listNotes = view.findViewById(R.id.listNotes);
+        emptyRecyclerView = view.findViewById(R.id.emptyViewNotes);
         floatingActionButtonNotes = view.findViewById(R.id.floatingActionButtonNotes);
+
 
         floatingActionButtonNotes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +144,7 @@ public class NotesFragment extends Fragment{
         private TextView noteContent;
         private CardView noteCard;
         private String noteId;
+        private View view;
 
         public String getNoteId() {
             return noteId;
@@ -150,8 +157,6 @@ public class NotesFragment extends Fragment{
         public View getView() {
             return view;
         }
-
-        private View view;
 
         public String getNoteTitle() {
             return noteTitle.getText().toString();
@@ -169,6 +174,8 @@ public class NotesFragment extends Fragment{
             noteCard = itemView.findViewById(R.id.noteCard);
             view=itemView;
         }
+
+
     }
 
     private void createItem() {
@@ -198,7 +205,6 @@ public class NotesFragment extends Fragment{
                 String noteId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 noteViewHolder.noteId = noteId;
 
-
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -209,7 +215,7 @@ public class NotesFragment extends Fragment{
             }
 
         };
-
+        listNotes.setEmptyView(emptyRecyclerView);
         listNotes.setLayoutManager(new LinearLayoutManager(getContext()));
         //listNotes.setLayoutManager((new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         listNotes.setAdapter(noteAdapter);
@@ -256,4 +262,6 @@ public class NotesFragment extends Fragment{
         int number = r.nextInt(colors.size());
         return colors.get(number);
     }
+
+
 }

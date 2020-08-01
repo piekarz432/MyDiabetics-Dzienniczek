@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity{
 
         if(email.getText().toString().isEmpty())
         {
-            email.setError("Prosze wpisac nazwę użytownika.");
+            email.setError("Prosze wpisac nazwę użytkownika.");
             return;
         }
 

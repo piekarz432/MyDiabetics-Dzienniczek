@@ -1,4 +1,4 @@
-package com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Reminders;
+package com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Remainders;
 
 import android.os.Bundle;
 
@@ -7,17 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RemaindersFragment#newInstance} factory method to
+ * Use the {@link AddRemainders#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RemaindersFragment extends Fragment {
+public class AddRemainders extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,11 +26,7 @@ public class RemaindersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button floatingActionButton;
-    private ListView listRemainders;
-    private View emptyView;
-
-    public RemaindersFragment() {
+    public AddRemainders() {
         // Required empty public constructor
     }
 
@@ -42,11 +36,11 @@ public class RemaindersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RemaindersFragment.
+     * @return A new instance of fragment AddRemainders.
      */
     // TODO: Rename and change types and number of parameters
-    public static RemaindersFragment newInstance(String param1, String param2) {
-        RemaindersFragment fragment = new RemaindersFragment();
+    public static AddRemainders newInstance(String param1, String param2) {
+        AddRemainders fragment = new AddRemainders();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,22 +55,12 @@ public class RemaindersFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_remainders, container, false);
-
-        floatingActionButton = view.findViewById(R.id.floatingActionButtonNotes);
-        listRemainders = view.findViewById(R.id.listRemainders);
-        emptyView = view.findViewById(R.id.emptyView);
-        listRemainders.setEmptyView(emptyView);
-
-
-        return view;
+        return inflater.inflate(R.layout.fragment_add_remainders, container, false);
     }
 }

@@ -5,17 +5,27 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Java.Fragments.Notes.NotesFragment" >
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/listNotes"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp" >
+    <com.karol.piekarski.mydiabetics_dzienniczek.Java.Class.EmptyRecyclerView
+        android:id="@+id/listNotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="0dp" />
 
-
-</androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/emptyViewNotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="Kliknij w przycisk aby utworzyć notatke"
+        android:textSize="24sp"
+        android:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonNotes"

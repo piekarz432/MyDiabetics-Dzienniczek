@@ -1,5 +1,7 @@
 package com.karol.piekarski.mydiabetics_dzienniczek.Java.Fragments.Notes;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.karol.piekarski.mydiabetics_dzienniczek.R;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +37,7 @@ import java.util.Map;
  * Use the {@link AddNote#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddNote extends Fragment {
+public class AddNote extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,12 +48,28 @@ public class AddNote extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private int day;
+    private int month;
+    private int year;
+    private int hour;
+    private int minute;
+
     private EditText noteContent;
     private EditText noteTitile;
-    private FloatingActionButton saveNote;
+    private EditText insulin;
+    private EditText glucose;
+
+    private TextView calendarButton;
+    private TextView timeButton;
+
+    private Calendar calendar;
+
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
+
+    private FloatingActionButton saveNote;
+
     private ProgressBar progressBarAddNote;
 
     public AddNote() {
@@ -92,8 +114,35 @@ public class AddNote extends Fragment {
         user = firebaseAuth.getCurrentUser();
         noteContent = view.findViewById(R.id.noteDetailsContent);
         noteTitile = view.findViewById(R.id.noteDetailsTitle);
+        calendarButton = view.findViewById(R.id.calendarButton);
+        timeButton = view.findViewById(R.id.clockButton);
         saveNote = view.findViewById(R.id.saveNote);
         progressBarAddNote = view.findViewById(R.id.progressBarAddNote);
+        insulin = view.findViewById(R.id.insulin);
+        glucose = view.findViewById(R.id.glucose);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+
+        calendarButton.setText(day + "/" + (month+1) + "/" + year);
+        timeButton.setText(hour + ":" + minute);
+
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCalendar();
+            }
+        });
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTimer();
+            }
+        });
 
         saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +157,10 @@ public class AddNote extends Fragment {
     private void saveNoteToFirebase() {
         String nContent = noteContent.getText().toString();
         String nTitle  = noteTitile.getText().toString();
+        String nInsulin = insulin.getText().toString();
+        String nGlucose = glucose.getText().toString();
 
-        if(nContent.isEmpty() || nTitle.isEmpty())
+        if(nContent.isEmpty() || nTitle.isEmpty() || nInsulin.isEmpty() || nGlucose.isEmpty())
         {
             Toast.makeText(getContext(), "Prosze wypełnić wszystkie pola", Toast.LENGTH_SHORT).show();
             return;
@@ -122,12 +173,15 @@ public class AddNote extends Fragment {
         Map<String, Object> note= new HashMap<>();
         note.put("title", nTitle);
         note.put("content", nContent);
+        note.put("date", calendarButton.getText());
+        note.put("time", timeButton.getText());
+        note.put("insulin", nInsulin);
+        note.put("glucose", nGlucose);
         documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getContext(), "Notatka została dodana.", Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -143,5 +197,37 @@ public class AddNote extends Fragment {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void openCalendar() {
+      DatePickerDialog datePickerDialog = new DatePickerDialog(
+              getContext(),
+              this,
+              year,
+              month,
+              day
+      );
+      datePickerDialog.show();
+    }
+
+    private void openTimer() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                getContext(),
+                this,
+                hour,
+                minute,
+                true
+        );
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        calendarButton.setText(day + "/" + (month+1) + "/" + year);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+        timeButton.setText(hour + ":" + minute);
     }
 }
